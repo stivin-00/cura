@@ -20,14 +20,18 @@ export default function CheckoutPayOption({navigation}) {
   const cart = useSelector(state => state.cart.cart);
   const address = useSelector(state => state.cart.address);
   const shipping = useSelector(state => state.cart.delivery);
-  const [selectedPayOption, setSelectedPayOption] = useState('');
+  const [selectedPayOption, setSelectedPayOption] = useState(
+    'Pay Now (with card)',
+  );
 
   let unique = _.uniqWith(cart, _.isEqual);
   const price = unique
     .reduce((acc, item) => acc + item.qty * item.price, 0)
     .toFixed(2);
   const discount = (price * 5) / 100;
-  const total = (parseInt(price) - parseInt(discount) + deliveryPrice).toFixed(2);
+  const total = (parseInt(price) - parseInt(discount) + deliveryPrice).toFixed(
+    2,
+  );
   const {State, LGA, Bustop, Street} = address;
 
   const getDeliveryPrice = () => {
@@ -176,20 +180,18 @@ export default function CheckoutPayOption({navigation}) {
             <Text style={{fontSize: scale(15), color: 'black'}}>
               SHIPPING INFO
             </Text>
-            <ScrollView
-              horizontal={true}
-              >
-            <FlatList
-              data={unique || []}
-              renderItem={({item, index}) => (
-                <Text
-                  item={item}
-                  // key={index}
-                  style={{fontSize: scale(12), color: 'gray'}}>
-                  {item.qty} {item.name} at ₦{item.price} per {item.size}
-                </Text>
-              )}
-            />
+            <ScrollView horizontal={true}>
+              <FlatList
+                data={unique || []}
+                renderItem={({item, index}) => (
+                  <Text
+                    item={item}
+                    // key={index}
+                    style={{fontSize: scale(12), color: 'gray'}}>
+                    {item.qty} {item.size} {item.name} at ₦{item.price} per 1
+                  </Text>
+                )}
+              />
             </ScrollView>
           </View>
         </View>
@@ -210,7 +212,10 @@ export default function CheckoutPayOption({navigation}) {
               />
             </View>
             <View style={styles.sizeContainer}>
-              <Label text="Discount:" style={{fontSize: scale(12), color: 'gray'}} />
+              <Label
+                text="Discount:"
+                style={{fontSize: scale(12), color: 'gray'}}
+              />
               <Label
                 text={`₦${discount}`}
                 style={{fontSize: scale(12), color: 'gray'}}

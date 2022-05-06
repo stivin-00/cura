@@ -10,6 +10,7 @@
 import React, {useEffect, useState} from 'react';
 // Import required components
 import {StatusBar} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 import MainStack from './app/routing/MainStack';
 import {Provider} from 'react-redux';
@@ -36,7 +37,7 @@ const App = () => {
   // const {persistor, store} = storePre;
 
   useEffect(() => {
-    // SplashScreen.hide();
+    SplashScreen.hide();
     const timer = setTimeout(() => {
       setIsTrue(false);
     }, 2000);
@@ -61,7 +62,7 @@ const App = () => {
       <DropdownAlert
         defaultContainer={{
           padding: 8,
-          paddingTop: StatusBar.currentHeight,
+          // paddingTop: StatusBar.currentHeight,
           flexDirection: 'row',
         }}
         ref={ref => AlertHelper.setDropDown(ref)}

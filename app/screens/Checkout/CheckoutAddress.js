@@ -59,7 +59,7 @@ export default function CheckoutAddress({searchValue, setSearchValue}) {
         <View style={{paddingLeft: scale(10)}}>
           <Label
             text="Billing address is the same as delivery address"
-            style={{fontSize: scale(15)}}
+            style={{fontSize: scale(14)}}
           />
         </View>
       </View>
@@ -73,6 +73,13 @@ export default function CheckoutAddress({searchValue, setSearchValue}) {
             console.log(selectedItem, index);
             console.log('state', state);
           }}
+          buttonStyle={{
+            // width: scale(80),
+            // height: scale(22),
+            borderRadius: scale(5),
+          }}
+          buttonTextStyle={{textAlign: 'left'}}
+          defaultButtonText={state}
           buttonTextAfterSelection={(selectedItem, index) => {
             // text represented after item is selected
             // if data array is an array of objects then return selectedItem.property to render after item is selected
@@ -93,14 +100,17 @@ export default function CheckoutAddress({searchValue, setSearchValue}) {
           onSelect={selectedItem => {
             setLga(selectedItem);
           }}
+          buttonStyle={{
+            // width: scale(80),
+            // height: scale(22),
+            borderRadius: scale(5),
+          }}
+          defaultButtonText={'select lga'}
+          buttonTextStyle={{marginLeft: scale(-80)}}
           buttonTextAfterSelection={selectedItem => {
-            // text represented after item is selected
-            // if data array is an array of objects then return selectedItem.property to render after item is selected
             return selectedItem;
           }}
           rowTextForSelection={item => {
-            // text represented for each item in dropdown
-            // if data array is an array of objects then return item.property to represent item in dropdown
             return item;
           }}
         />

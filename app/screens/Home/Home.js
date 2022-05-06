@@ -97,7 +97,7 @@ function Home({navigation}) {
                   }}>
                   <Image
                     resizeMode="contain"
-                    style={{height: scale(50), width: scale(40)}}
+                    style={{height: scale(50), width: scale(38)}}
                     source={image}
                   />
                 </TouchableRipple>

@@ -74,7 +74,7 @@ export default function Orders({navigation}) {
                 item={item}
                 // key={index}
                 style={{fontSize: scale(12), color: 'gray'}}>
-                {item.qty} {item.name} at ₦{item.price}
+                {item.qty} {item.size} {item.name} at ₦{item.price}
               </Text>
             )}
           />

@@ -14,7 +14,7 @@ import {
   FINAL,
 } from './constants/cartConstants';
 
-export const addToCart = (productId, qty) => async (dispatch, getState) => {
+export const addToCart = (productId, qty, size) => async (dispatch, getState) => {
   const {data} = await axios.get(
     `https://jumstore-store.herokuapp.com/api/products/${productId}`,
   );
@@ -26,8 +26,8 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
       price: data.price,
       countInStock: data.countInStock,
       product: data._id,
-      size: data.size,
       qty,
+      size,
     },
   });
   await AsyncStorage.setItem('cartItems', JSON.stringify(getState().cart.cart));

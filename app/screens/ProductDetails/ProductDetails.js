@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import SelectDropdown from 'react-native-select-dropdown';
 import {useState, useEffect} from 'react';
 import {
   View,
@@ -33,7 +34,6 @@ function ProductDetails({navigation, route: {params}}) {
     description,
     price,
     countInStock,
-    size,
     category,
     image,
     brand,
@@ -48,13 +48,11 @@ function ProductDetails({navigation, route: {params}}) {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const dispatch = useDispatch();
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [qty, setQty] = useState(1);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [size, setSize] = useState('xl');
   const [productId, setProductId] = useState(params.item._id);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-
-  // let unique = _.uniqWith(carttItems, _.isEqual);
+  const itemQty = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const bodySize = ['sm', 'md', 'lg', 'xl', 'xxl', 'xxxl'];
 
   const setLocal = () => {
     const itemcart = {
@@ -89,10 +87,11 @@ function ProductDetails({navigation, route: {params}}) {
 
   const onAddToCartt = () => {
     try {
-      dispatch(addToCart(productId, qty));
+      dispatch(addToCart(productId, qty, size));
       AlertHelper.show('success', 'Product added to cart');
       console.log('product', productId);
       console.log('qty', qty);
+      console.log('size', size);
     } catch (error) {
       AlertHelper.show('error', 'action failed, please try again');
       console.log('error', error);
@@ -225,10 +224,53 @@ function ProductDetails({navigation, route: {params}}) {
               // alignItems: 'center',
             }}>
             <View style={styles.sizeContainer}>
-              <Label text="Count In Stock :" style={{fontSize: scale(15)}} />
-              <Label
+              <Label text="Select Qty:" style={{fontSize: scale(15)}} />
+              {/* <Label
                 text={countInStock}
-                style={{fontWeight: '700', fontSize: scale(15)}}
+                style={{fontWeight: '700', fontSize: scale(15)}}> */}
+              <SelectDropdown
+                data={itemQty}
+                onSelect={(selectedItem, index) => {
+                  setQty(selectedItem);
+                  console.log(selectedItem, index);
+                }}
+                buttonStyle={{
+                  width: scale(80),
+                  height: scale(22),
+                  borderRadius: scale(5),
+                  marginVertical: scale(-5),
+                }}
+                defaultButtonText={qty}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item;
+                }}
+              />
+              {/* </Label> */}
+            </View>
+            <View style={styles.sizeContainer}>
+              <Label text="Select Size:" style={{fontSize: scale(15)}} />
+              <SelectDropdown
+                buttonStyle={{
+                  width: scale(80),
+                  height: scale(22),
+                  borderRadius: scale(5),
+                  marginVertical: scale(-5),
+                }}
+                data={bodySize}
+                onSelect={(selectedItem, index) => {
+                  setSize(selectedItem);
+                  console.log(selectedItem, index);
+                }}
+                defaultButtonText={size}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem;
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item;
+                }}
               />
             </View>
             <View style={styles.sizeContainer}>
@@ -245,13 +287,7 @@ function ProductDetails({navigation, route: {params}}) {
                 style={{fontWeight: '700', fontSize: scale(15)}}
               />
             </View>
-            <View style={styles.sizeContainer}>
-              <Label text="Size:" style={{fontSize: scale(15)}} />
-              <Label
-                text={size}
-                style={{fontWeight: '700', fontSize: scale(15)}}
-              />
-            </View>
+
             <View style={styles.sizeContainer}>
               <Label text="Rating :" style={{fontSize: scale(15)}} />
 

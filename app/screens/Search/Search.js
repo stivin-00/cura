@@ -86,7 +86,7 @@ export default function Search({navigation}) {
             }}
           />
           <View style={{paddingVertical: scale(20)}}>
-            <TitleComp subLabel="Recent Searches" />
+            <TitleComp subLabel="Popular Categories" />
             <ScrollView horizontal={true}>
               <FlatList
                 style={{paddingVertical: scale(10)}}
@@ -96,7 +96,9 @@ export default function Search({navigation}) {
                 )}
                 data={recentSearches}
                 renderItem={({item, index}) => (
-                  <Badge key={index} label={item} />
+                  <Pressable key={index} onPress={() => setCategory(item)}>
+                    <Badge label={item} />
+                  </Pressable>
                 )}
               />
             </ScrollView>
